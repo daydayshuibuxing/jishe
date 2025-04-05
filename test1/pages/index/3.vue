@@ -1,15 +1,22 @@
 <template>
-  <div class="container">
+  <view class="container multicolor-bg">
     <!-- 顶部区域 -->
-    <header class="top-bar">
-      <div class="top-left">
-        <div class="main-title">家电</div>
-        
-      </div>
-      <div class="top-right">
-        <div class="date">2025-03-03</div>
-        <div class="tips">共4个设备</div>
-      </div>
+
+    <header>
+		<view>
+		  <top-bar logo-url="/images/logo.png" />
+		</view>
+		<view class="top-bar">
+			<view class="top-left">
+				<view class="main-title">家电</view>
+
+			</view>
+			<view class="top-right">
+				<view class="tips">共4个设备</view>
+			</view>
+		</view>
+			
+		
     </header>
 
     <!-- 主体内容：家电卡片列表 -->
@@ -20,60 +27,48 @@
           :key="index"
           class="device-item"
         >
-          <div class="icon-box">
+          <view class="icon-box">
             <!-- 替换为你的图标或图片路径 -->
             <img src="/images/device1.png"  alt="icon" class="device-icon" />
-          </div>
-          <div class="device-info">
-            <div class="device-name">{{ device.name }}</div>
-			</div>
-            <div class="device-meta">
-              <div class="location">位置：{{ device.location }}</div>
-              <div class="status">状态：{{ device.status }}</div>
-            </div>
+          </view>
+          <view class="device-info">
+            <view class="device-name">{{ device.name }}</view>
+			</view>
+            <view class="device-meta">
+              <view class="location">位置：{{ device.location }}</view>
+              <view class="status">状态：{{ device.status }}</view>
+            </view>
         </li>
 		<!-- 添加一个加号按钮 -->
-		        <li class="device-item add-device" @click="onAddDevice">
-		          <div class="icon-box green-box">
-		            <div class="add-sign">+</div>
-					</div>
-		        </li>
-		
       </ul>
+	  <li class="add-device" @click="onAddDevice">
+	    <view>
+	      +
+	  	</view>
+	  </li>
     </main>
 
+	<view>
+		<BottomBar />
+		
+	</view>
 
-    <!-- 底部导航栏 -->
-    <nav class="bottom-nav">
-      <div class="nav-item" @click="onNav('照明')">
-        <img src="/images/灯泡.png" alt="icon" class="nav-icon" />
-        <div class="nav-label">照明</div>
-      </div>
-      <div class="nav-item" @click="onNav('安防')">
-        <img src="/images/监控3.png" alt="icon" class="nav-icon" />
-        <div class="nav-label">安防</div>
-      </div>
-
-      <!-- 中间凸起的主页按钮 -->
-      <div class="nav-center" @click="onNav('首页')">
-        <img src="https://via.placeholder.com/40" alt="home" class="home-icon" />
-      </div>
-
-      <div class="nav-item" @click="onNav('家电')">
-        <img src="/images/家.png" alt="icon" class="nav-icon" />
-        <div class="">家电</div>
-      </div>
-      <div class="nav-item" @click="onNav('成员')">
-        <img src="/images/成员1.png" alt="icon" class="nav-icon" />
-        <div class="nav-label">成员</div>
-      </div>
-    </nav>
-  </div>
+  </view>
 </template>
 
 <script>
+import TopBar from '@/pages/bar/topbar.vue'
+import BottomBar from '@/pages/bar/bottombar.vue'
+
+
 export default {
   name: "AppliancePage",
+  
+  components: {
+      TopBar,
+	  BottomBar
+	},
+	
   data() {
     return {
       devices: [
@@ -114,20 +109,23 @@ export default {
 .container {
   width: 100%;
   height: 100vh;
-  background: linear-gradient(135deg, #0b2925 0%, #0d3b38 100%);
+  background: linear-gradient(135deg, #081f1c 0%, #0a2c32 100%);
+  
   display: flex;
   flex-direction: column;
   color: #fff;
   font-family: sans-serif;
-  overflow: hidden; /* 防止内部滚动时出现外层滚动条 */
+  overflow: hidden; 
 }
 
-/* 顶部区域 */
+
 .top-bar {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 12px;
+  /* 上：24rpx, 右：32rpx, 下：24rpx, 左：32rpx */
+  padding: 30rpx 32rpx 20rpx 32rpx;
+
 }
 
 .top-left {
@@ -136,12 +134,12 @@ export default {
   max-width: 70%;
 }
 .main-title {
-  font-size: 20px;
+  font-size: 40rpx; /* 修改：20px → 40rpx */
   font-weight: bold;
-  margin-bottom: 6px;
+  margin-bottom: 12rpx; /* 修改：6px → 12rpx */
 }
 .sub-text {
-  font-size: 12px;
+  font-size: 24rpx; /* 修改：12px → 24rpx */
   opacity: 0.8;
   line-height: 1.4;
 }
@@ -151,51 +149,69 @@ export default {
   flex-direction: column;
   align-items: flex-end;
 }
-.date {
-  font-size: 14px;
-  margin-bottom: 4px;
-}
+
 .tips {
-  font-size: 12px;
+  font-size: 24rpx; /* 修改：12px → 24rpx */
   opacity: 0.8;
 }
 
 /* 主体内容 */
 .main-content {
   flex:1;
-  padding: 0 12px 12px;
+  padding: 0 24rpx 24rpx; /* 修改：0 12px 12px → 0 24rpx 24rpx */
 }
 
 .device-list {
-  ist-style: none;
-    margin: 0;
-    padding: 0;
+  list-style: none; /* 修复拼写错误：ist-style → list-style */
+  margin: 0;
+  padding: 0;
 }
 
 .device-item {
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 20px;
-  margin-bottom: 10px;
-  padding: 12px;
+  
+  /* 基础背景色（建议带透明度） */
+  background: rgba(255, 255, 255, 0.04);
+  
+  backdrop-filter: blur(40rpx);           /* 标准属性 */
+  -webkit-backdrop-filter: blur(40rpx);   /* iOS/Safari 兼容 */
+  
+  border-radius: 40rpx;
+  margin-bottom: 40rpx;
+  padding: 24rpx;
+  overflow: hidden; /* 防止子元素溢出破坏模糊效果 */
+}
+
+/* 伪元素增强效果（可选） */
+.device-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  filter: blur(140rpx);
+  z-index: -1;
+  opacity: 0.8;
 }
 
 .icon-box {
-  width: 60px;
-  height: 67px;
-  border-radius: 10px;
+  width: 120rpx; /* 修改：60px → 120rpx */
+  height: 134rpx; /* 修改：67px → 134rpx */
+  border-radius: 20rpx; /* 修改：10px → 20rpx */
   background: rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 60px;
+  margin-right: 120rpx; /* 修改：60px → 120rpx */
 }
 
 .device-icon {
-  width: 50px;
-  height: 40px;
-  margin-left: 20px;
+  width: 100rpx; /* 修改：50px → 100rpx */
+  height: 80rpx; /* 修改：40px → 80rpx */
+  margin-left: 40rpx; /* 修改：20px → 40rpx */
 }
 
 .device-info {
@@ -204,84 +220,40 @@ export default {
 }
 
 .device-name {
-  font-size: 26px;
+  font-size: 52rpx; /* 修改：26px → 52rpx */
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 10rpx; /* 修改：5px → 10rpx */
   color: #ffffff;
-   margin-left: 20px;
-
+  margin-left: 40rpx; /* 修改：20px → 40rpx */
 }
 
 .device-meta {
   display: flex;
-  gap: 6px;
-  font-size: 10px;
+  gap: 12rpx; /* 修改：6px → 12rpx */
+  font-size: 20rpx; /* 修改：10px → 20rpx */
   color: rgba(255, 255, 255, 0.7);
   opacity: 0.8;
   flex-direction:column ;
- margin-left: 50px; 
+  margin-left: 100rpx; /* 修改：50px → 100rpx */
 }
+
 /* 加号按钮的样式 */
-.add-device .icon-box {
-  background: #3CB371;
+.add-device{
+  background: rgb(40, 230, 163);
+  width: 200rpx; /* 修改：100px → 200rpx */
+  height: 94rpx; /* 修改：47px → 94rpx */
+  border-radius: 20rpx; /* 修改：10px → 20rpx */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
 }
+
 .add-sign {
-  font-size: 32px;
+  font-size: 64rpx; /* 修改：32px → 64rpx */
   color: #696969;
   line-height: 2;
 }
-/* 底部导航栏 */
-.bottom-nav {
-  position: fixed;  /* 改为固定定位 */
-  bottom: 0;        /* 固定在底部 */
-  left: 0;          /* 左侧对齐 */
-  width: 100%;      /* 撑满宽度 */
-  height: 60px;
-  background: #102522;
-  display: flex;
-  border-radius: 20px;
-  align-items: center;
-  justify-content: space-around;
-  z-index: 10;     /* 确保导航栏在最上层 */
-}
 
-/* 普通导航按钮 */
-.nav-item {
-  text-align: center;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.nav-icon {
-  width: 24px;
-  height: 24px;
-  margin-bottom: 2px;
-}
-.nav-label {
-  font-size: 12px;
-  opacity: 0.9;
-}
 
-/* 中间凸起的主页按钮 */
-.nav-center {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: #0b2925;
-  border: 2px solid #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: -20px; /* 使其凸起 */
-  cursor: pointer;
-}
-.home-icon {
-  width: 40px;
-  height: 40px;
-}
 </style>
